@@ -1,0 +1,58 @@
+appId: com.vexa.recorder
+productName: Vexa
+copyright: Copyright © 2026 Vexa
+directories:
+  buildResources: build
+  output: release
+files:
+  - '!**/.vscode/*'
+  - '!src/*'
+  - '!scripts/*'
+  - '!electron.vite.config.{js,ts,mjs,cjs}'
+  - '!{.eslintcache,eslint.config.mjs,.gitignore,README.md}'
+  - '!{.env,.env.*,.npmrc}'
+  - '!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}'
+  - '!.github/**'
+  - '!release/**'
+asarUnpack:
+  - node_modules/koffi/**
+extraResources:
+  - from: build/tray.png
+    to: tray.png
+  - from: build/trayTemplate.png
+    to: trayTemplate.png
+win:
+  icon: build/icon.ico
+  executableName: Vexa
+  target:
+    - target: msi
+      arch:
+        - x64
+  artifactName: ${productName}-${version}-setup.${ext}
+msi:
+  oneClick: false
+  perMachine: false
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: Vexa
+mac:
+  icon: build/icon.png
+  category: public.app-category.video
+  target:
+    - target: dmg
+      arch: [arm64, x64]
+    - target: zip
+      arch: [arm64, x64]
+  entitlements: build/entitlements.mac.plist
+  entitlementsInherit: build/entitlements.mac.plist
+  gatekeeperAssess: false
+  notarize: false
+  extendInfo:
+    NSCameraUsageDescription: Vexa uses the camera to include you in the recording.
+    NSMicrophoneUsageDescription: Vexa uses the microphone so your voice is in the recording.
+    NSScreenCaptureUsageDescription: Vexa records your screen.
+    NSAudioCaptureUsageDescription: Vexa records system audio so sound from your computer is in the recording.
+dmg:
+  title: Vexa
+  artifactName: ${productName}-${version}-${arch}.${ext}
+npmRebuild: false
